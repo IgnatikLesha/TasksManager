@@ -7,6 +7,7 @@ using System.Web.Security;
 using BLL.Entities;
 using BLL.Interfaces;
 
+
 namespace TasksManager.Providers
 {
     public class CustomMembershipProvider : MembershipProvider
