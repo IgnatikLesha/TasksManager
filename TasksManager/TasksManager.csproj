@@ -156,19 +156,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LogInViewModel.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomMembershipProvider.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\TasksManagerDatabase.mdf" />
-    <Content Include="App_Data\TasksManagerDatabase_log.ldf">
-      <DependentUpon>TasksManagerDatabase.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -210,7 +210,8 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

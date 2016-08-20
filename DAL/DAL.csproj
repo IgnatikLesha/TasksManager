@@ -50,15 +50,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Concrete\RoleRepository.cs" />
+    <Compile Include="Concrete\TaskRepository.cs" />
+    <Compile Include="Concrete\UnitOfWork.cs" />
+    <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Concrete\" />
     <Folder Include="Mappers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL.Interfaces\DAL.Interfaces.csproj">
+      <Project>{ecce3d10-8010-44bb-b5df-8dc2f130c8d1}</Project>
+      <Name>DAL.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

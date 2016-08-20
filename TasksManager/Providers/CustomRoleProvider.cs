@@ -66,9 +66,7 @@ namespace TasksManager.Providers
                 return roles;
             var role = user.Roles;
             if (role != null)
-            {
                 roles = new string[] { role.Select(r => r.Name).ToString() };
-            }
             return roles;
         }
 
@@ -84,9 +82,7 @@ namespace TasksManager.Providers
                 return false;
             var role = user.Roles.Select(r => r.Name == roleName);
             if (role != null)
-            {
                 return true;
-            }
 
             return false;
         }

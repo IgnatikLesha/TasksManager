@@ -49,14 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\RoleMapper.cs" />
+    <Compile Include="Mappers\TaskMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mappers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BLL.Interfaces\BLL.Interfaces.csproj">
       <Project>{c0b78df6-0463-4087-8f0d-8963f22682a6}</Project>
