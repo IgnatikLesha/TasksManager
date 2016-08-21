@@ -13,18 +13,18 @@ namespace TasksManager.Models
         [Required(ErrorMessage = "Enter name")]
         [StringLength(20, MinimumLength = 6)]
         [Display(Name = "Name")]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Enter Email")]
         [Display(Name = "Email address")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Incorrect Email")]
-        public string UserEmail { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Enter password")]
         [StringLength(30, MinimumLength = 6)]
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
-        public string UserPassword { get; set; }
+        public string Password { get; set; }
 
         [Display(Name = "Confirm password")]
         [DataType(DataType.Password)]

@@ -6,12 +6,12 @@ using System.Web;
 
 namespace TasksManager.Models
 {
-    public class LogInViewModel
+    public class LoginViewModel
     {
         [Required(ErrorMessage = "Enter name")]
         [StringLength(20, MinimumLength = 6)]
         [Display(Name = "Name")]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Enter password")]
         [StringLength(20, MinimumLength = 6)]

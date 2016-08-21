@@ -16,7 +16,7 @@ namespace ORM
         }
 
         public TasksManagerModel()
-            : base("name=TaskManagerModel")
+            : base("name=TasksManagerModel")
         {
         }
 
