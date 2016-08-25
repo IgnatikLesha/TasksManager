@@ -34,11 +34,10 @@ namespace ConsoleDBTest
 
                 foreach (var item in db.Users)
                 {
-                    if (item.Id == 2)
-                    {
+
                         Console.WriteLine(item.Name);
                         Console.WriteLine(item.Email);
-                    }
+
                 }
                 Console.ReadLine();
             }
