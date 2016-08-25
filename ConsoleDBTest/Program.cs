@@ -13,25 +13,25 @@ namespace ConsoleDBTest
         {
             using (var db = new TasksManagerModel())
             {
-                var user = new Role
-                {
-                    Name = "User"
-                };
-                var admin = new Role
-                {
-                    Name = "Admin"
-                };
-                db.Roles.Add(user);
-                db.Roles.Add(admin);
-                db.SaveChanges();
-                User user1 = new User()
-                {
-                    Name = "John", Password = "qwerty",
-                    Email = "qwerty@gmail.com",
-                    Roles = { user, admin }
-                };
-                db.Users.Add(user1);
-                db.SaveChanges();
+                //var user = new Role
+                //{
+                //    Name = "User"
+                //};
+                //var admin = new Role
+                //{
+                //    Name = "Admin"
+                //};
+                //db.Roles.Add(user);
+                //db.Roles.Add(admin);
+                //db.SaveChanges();
+                //User user1 = new User()
+                //{
+                //    Name = "John", Password = "qwerty",
+                //    Email = "qwerty@gmail.com",
+                //    Roles = { user, admin }
+                //};
+                //db.Users.Add(user1);
+                //db.SaveChanges();
 
 
                 foreach (var item in db.Roles)

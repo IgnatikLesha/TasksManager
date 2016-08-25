@@ -18,6 +18,7 @@ namespace ORM
         public TasksManagerModel()
             : base("name=TasksManagerModel")
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
         }
 
         public virtual DbSet<Role> Roles { get; set; }
