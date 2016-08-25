@@ -30,8 +30,16 @@ namespace ConsoleDBTest
                     Email = "qwerty@gmail.com",
                     Roles = { user, admin }
                 };
+                db.Users.Add(user1);
                 db.SaveChanges();
 
+
+                foreach (var item in db.Roles)
+                {
+
+                    Console.WriteLine(item.Name);
+
+                }
                 foreach (var item in db.Users)
                 {
 
