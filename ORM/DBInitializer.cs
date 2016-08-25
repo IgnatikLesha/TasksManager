@@ -16,7 +16,7 @@ namespace ORM
             context.Roles.Add(user);
             context.Roles.Add(admin);
 
-            User administrator = new User {Name = "Admin", Email = "ignatiklesha@gmail.com", Roles = {user, admin}};
+            User administrator = new User {Name = "Admin", Email = "ignatiklesha@gmail.com", Roles = {user, admin}, Password = "qwerty"};
             context.Users.Add(administrator);
             context.SaveChanges();
         }
