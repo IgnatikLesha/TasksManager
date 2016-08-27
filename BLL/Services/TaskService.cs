@@ -6,15 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Entities;
 using BLL.Interfaces;
+using DAL.Interfaces;
 
 namespace BLL.Services
 {
     public class TaskService : ITaskService
     {
-        public void Create(TaskEntity entity)
+        private readonly IUnitOfWork uow;
+
+        private readonly ITaskRepository taskRepository;
+
+        public TaskService(IUnitOfWork uow, ITaskRepository taskRepository)
         {
-            throw new NotImplementedException();
+            this.uow = uow;
+            this.taskRepository = taskRepository;
         }
+
+        public void Create(TaskEntity entity)
+        {                    
+            entity.Checked = false;
+            entity.CreationDate = DateTime.Now;
+            taskRepository.Create(entity.GetDalEntity());
+            uow.Commit();
+        }
+    
 
         public int CreateTask(TaskEntity taskEntity)
         {

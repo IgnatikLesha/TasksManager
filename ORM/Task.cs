@@ -11,13 +11,13 @@ namespace ORM
     {
         public int Id { get; set; }
 
-        public int FromUserId { get; set; }
+        public int SenderId { get; set; }
 
-        public int ToUserId { get; set; }
+        public int RecipientId { get; set; }
 
         public DateTime DateCreation { get; set; }
 
-        public bool IsChecked { get; set; }
+        public bool Checked { get; set; }
 
         [StringLength(30)]
         public string Name { get; set; }

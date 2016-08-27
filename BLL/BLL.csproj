@@ -71,6 +71,18 @@
       <Project>{3f937937-a463-4eca-a50c-22f5bc62e619}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DependencyResolver\DependencyResolver.csproj">
+      <Project>{8e007f5b-9472-4d2b-9f7f-613cf46b5b7c}</Project>
+      <Name>DependencyResolver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{cb180f9b-478d-45c5-83e0-c9fc6240de5a}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ORM\ORM.csproj">
+      <Project>{6042b074-5cfa-4b89-b814-459a00c0fb6e}</Project>
+      <Name>ORM</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

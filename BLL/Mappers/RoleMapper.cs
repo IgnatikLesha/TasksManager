@@ -5,28 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Entities;
 using DAL.DTO;
+using ORM;
 
 namespace BLL.Mappers
 {
     public static class RoleMapper
     {
-        public static RoleEntity GetBllEntity(this DalRole dalEntity)
+        public static Role GetORMEntity(this DalRole dalEntity)
         {
             if (dalEntity == null)
                 return null;
-            return new RoleEntity()
+            return new Role()
             {
-                Id = dalEntity.Id,
                 Name = dalEntity.Name
             };
         }
 
-        public static DalRole GetDalEntity(this RoleEntity bllEntity)
+        public static DalRole GetDalEntity(this Role ormEntity)
         {
             return new DalRole()
             {
-                Id = bllEntity.Id,
-                Name = bllEntity.Name
+                Id = ormEntity.Id,
+                Name = ormEntity.Name
             };
         }
     }

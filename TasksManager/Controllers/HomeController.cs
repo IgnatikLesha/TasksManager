@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BLL.Interfaces;
+using TasksManager.Models;
 
 namespace TasksManager.Controllers
 {
@@ -14,7 +15,14 @@ namespace TasksManager.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = userService.GetByPredicate(u => u.Name == User.Identity.Name);
+                var tasks = taskService.GetAllByPredicate(t => t.SenderId == user.Id).ToList().GetTasksViewModel();
+                ViewBag.Tasks = tasks;
+                ViewBag.AllUsers = userService.GetAllEntities();
+            }
+            return View("MainView");
         }
 
         public ActionResult About()

@@ -98,11 +98,7 @@ namespace TasksManager.Controllers
 
             return View(model);
         }
-        public ActionResult Logoff()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
+
 
     }
 }

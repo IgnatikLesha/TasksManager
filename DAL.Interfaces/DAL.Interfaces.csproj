@@ -53,6 +53,7 @@
     <Compile Include="DTO\DalRole.cs" />
     <Compile Include="DTO\DalTask.cs" />
     <Compile Include="DTO\DalUser.cs" />
+    <Compile Include="Repository\IEntity.cs" />
     <Compile Include="Repository\IRoleRepository.cs" />
     <Compile Include="Repository\ITaskRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />

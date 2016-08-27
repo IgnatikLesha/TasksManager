@@ -5,35 +5,40 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Entities;
 using DAL.DTO;
+using ORM;
 
 namespace BLL.Mappers
 {
     public static class UserMapper
     {
-        public static UserEntity GetBllEntity(this DalUser dalEntity)
+        public static User GetORMEntity(this DalUser dalEntity)
         {
             if (dalEntity == null)
                 return null;
-            return new UserEntity()
+            return new User()
             {
                 Id = dalEntity.Id,
                 Name = dalEntity.Name,
                 Password = dalEntity.Password,
                 Email = dalEntity.Email,
-                Roles = dalEntity.Roles != null ? dalEntity.Roles.Select(r => r.GetBllEntity()).ToList(): null
+                Roles =
+                    dalEntity.Roles != null
+                        ? dalEntity.Roles.Select(r => r.GetORMEntity()).ToList()
+                        : null
             };
         }
 
-        public static DalUser GetDalEntity(this UserEntity bllEntity)
+        public static DalUser GetDalEntity(this User ormEntity)
         {
             return new DalUser()
             {
-                Id = bllEntity.Id,
-                Name = bllEntity.Name,
-                Email = bllEntity.Email,
-                Password = bllEntity.Password,
-                Roles = bllEntity.Roles.Select(r => r.GetDalEntity()).ToList()
+                Id = ormEntity.Id,
+                Name = ormEntity.Name,
+                Email = ormEntity.Email,
+                Password = ormEntity.Password,
+                Roles = ormEntity.Roles.Select(r => r.GetDalEntity()).ToList()
             };
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace TasksManager.Controllers
         {
             ViewBag.Users = service.GetAllEntities();
             ViewBag.User = service.GetByPredicate(u => u.Name == User.Identity.Name);
-            return PartialView("UsersView");
+            return PartialView("UserView");
         }
     }
 }

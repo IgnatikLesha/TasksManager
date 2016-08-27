@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Interfaces.Repository;
 
 namespace DAL.DTO
 {
-    public class DalTask
+    public class DalTask : IEntity
     {
         public int Id { get; set; }
 
