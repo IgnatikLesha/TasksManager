@@ -28,7 +28,7 @@ namespace TasksManager.Models
 
         [Display(Name = "Confirm password")]
         [DataType(DataType.Password)]
-        [Compare("UserPassword", ErrorMessage = "The passwords do not match")]
+        [Compare("Password", ErrorMessage = "The passwords do not match")]
         public string PasswordConfirm { get; set; }
     }
 }

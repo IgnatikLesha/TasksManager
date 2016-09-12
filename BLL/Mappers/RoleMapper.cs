@@ -11,22 +11,23 @@ namespace BLL.Mappers
 {
     public static class RoleMapper
     {
-        public static Role GetORMEntity(this DalRole dalEntity)
+        public static RoleEntity GetBllEntity(this DalRole dalEntity)
         {
             if (dalEntity == null)
                 return null;
-            return new Role()
+            return new RoleEntity()
             {
+                Id = dalEntity.Id,
                 Name = dalEntity.Name
             };
         }
 
-        public static DalRole GetDalEntity(this Role ormEntity)
+        public static DalRole GetDalEntity(this RoleEntity bllEntity)
         {
             return new DalRole()
             {
-                Id = ormEntity.Id,
-                Name = ormEntity.Name
+                Id = bllEntity.Id,
+                Name = bllEntity.Name
             };
         }
     }

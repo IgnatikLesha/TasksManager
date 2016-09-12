@@ -11,37 +11,33 @@ namespace BLL.Mappers
 {
     public static class TaskMapper
     {
-        public static ORM.Task GetORMEntity(this DalTask dalEntity)
+        public static TaskEntity GetBllEntity(this DalTask dalEntity)
         {
             if (dalEntity == null)
                 return null;
-            return new ORM.Task()
+            return new TaskEntity()
             {
                 Id = dalEntity.Id,
                 Checked = dalEntity.Checked,
                 SenderId = dalEntity.SenderId,
                 RecipientId = dalEntity.RecipientId,
-                DateCreation = dalEntity.CreationDate,
+                CreationDate = dalEntity.CreationDate,
                 Name = dalEntity.Name,
-                Description = dalEntity.Description,
-                User = dalEntity.User.GetORMEntity(),
-                User1 = dalEntity.User1.GetORMEntity()
+                Description = dalEntity.Description
             };
         }
 
-        public static DalTask GetDalEntity(this ORM.Task ormEntity)
+        public static DalTask GetDalEntity(this TaskEntity bllEntity)
         {
             return new DalTask()
             {
-                Id = ormEntity.Id,
-                Checked = ormEntity.Checked,
-                SenderId = ormEntity.SenderId,
-                RecipientId = ormEntity.RecipientId,
-                CreationDate = ormEntity.DateCreation,
-                Name = ormEntity.Name,
-                Description = ormEntity.Description,
-                User = ormEntity.User.GetDalEntity(),
-                User1 = ormEntity.User1.GetDalEntity()
+                Id = bllEntity.Id,
+                Checked = bllEntity.Checked,
+                SenderId = bllEntity.SenderId,
+                RecipientId = bllEntity.RecipientId,
+                CreationDate = bllEntity.CreationDate,
+                Name = bllEntity.Name,
+                Description = bllEntity.Description
             };
         }
     }

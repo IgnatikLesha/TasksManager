@@ -1,15 +1,10 @@
 ﻿@using ORM
 @model TasksManager.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Register";
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" } }))
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" } }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
@@ -46,4 +41,7 @@
         </fieldset>
     }
 }
+
+
+
 
