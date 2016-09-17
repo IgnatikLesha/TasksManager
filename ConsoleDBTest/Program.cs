@@ -34,6 +34,7 @@ namespace ConsoleDBTest
                 //db.SaveChanges();
 
 
+
                 foreach (var item in db.Roles)
                 {
 

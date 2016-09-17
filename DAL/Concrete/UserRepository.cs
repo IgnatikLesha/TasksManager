@@ -1,49 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 using DAL.DTO;
 using DAL.Interfaces;
+using DAL.Mappers;
+using Helpers;
+using ORM;
+using Task = System.Threading.Tasks.Task;
 
 namespace DAL.Concrete
 {
     public class UserRepository : IUserRepository
     {
-        public void Create(DalUser entity)
+        private readonly DbContext context;
+
+        public UserRepository(DbContext uow)
         {
-            throw new NotImplementedException();
+            if (uow == null)
+            {
+                throw new ArgumentNullException("entitiesContext");
+            }
+            this.context = uow;
         }
 
-        public void Delete(DalUser entity)
+        public void Create(DalUser e)
         {
-            throw new NotImplementedException();
+            context.Set<User>().Add(e.GetORMEntity());
         }
 
+        public void Delete(DalUser e)
+        {
+            var user = context.Set<User>().Single(u => u.Id == e.Id);
+            var tasksId = context.Set<ORM.Task>().Where(t => t.SenderId == user.Id || t.RecipientId == user.Id).ToList();
+            context.Set<ORM.Task>().RemoveRange(tasksId);
+            context.Set<ORM.User>().Remove(e.GetORMEntity());
+            context.SaveChanges();
+        }
+
+        public void Update(DalUser e)
+        {
+            context.Set<ORM.User>().AddOrUpdate(e.GetORMEntity());
+            context.SaveChanges();
+        }
+ 
         public IEnumerable<DalUser> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DalUser> GetAllByPredicate(Expression<Func<DalUser, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            var x = context.Set<User>().Include(u => u.Roles).ToList();
+            return x.Select(user => user.GetDalEntity());
         }
 
         public DalUser GetById(int key)
         {
-            throw new NotImplementedException();
+            var ormUser = context.Set<User>().Include(u => u.Roles).FirstOrDefault(u => u.Id == key);
+            return ormUser == null ? null : ormUser.GetDalEntity();
         }
 
-        public DalUser GetByPredicate(Expression<Func<DalUser, bool>> predicate)
+
+        public DalUser GetByPredicate(Expression<Func<DalUser, bool>> f)
         {
-            throw new NotImplementedException();
+            return GetAllByPredicate(f).FirstOrDefault();
         }
 
-        public void Update(DalUser entity)
+        public IEnumerable<DalUser> GetAllByPredicate(Expression<Func<DalUser, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor = new HelperExpressionVisitor<DalUser, User>(Expression.Parameter(typeof(User), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<User, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            var x = context.Set<User>().Include(user => user.Roles).Where(exp2).ToList();
+            return x.Select(user => user.GetDalEntity());
         }
     }
 }

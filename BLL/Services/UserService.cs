@@ -28,7 +28,7 @@ namespace BLL.Services
         }
         public void Create(UserEntity user)
         {
-            user.Roles = new List<RoleEntity> { roleRepository.GetById(3).GetBllEntity() };
+            user.Roles = new List<RoleEntity> { roleRepository.GetById(1).GetBllEntity() };
             userRepository.Create(user.GetDalEntity());
             if (!(Directory.Exists(user.Name)))
             {

@@ -67,9 +67,10 @@ namespace TasksManager.Controllers
                 {
                     userService.Create(new UserEntity
                     {
+                        Name = model.Name,
                         Email = model.Email,
-                        Password = model.Password,
-                        Name = model.Name
+                        Password = model.Password
+
                     });
 
                     FormsAuthentication.SetAuthCookie(model.Name, true);

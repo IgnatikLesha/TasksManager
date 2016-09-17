@@ -1,49 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.DTO;
 using DAL.Interfaces;
+using DAL.Mappers;
+using Helpers;
+using ORM;
 
 namespace DAL.Concrete
 {
     public class RoleRepository : IRoleRepository
     {
-        public void Create(DalRole entity)
+        private readonly DbContext context;
+
+        public RoleRepository(DbContext uow)
         {
-            throw new NotImplementedException();
+            if (uow == null)
+            {
+                throw new ArgumentNullException("entitiesContext");
+            }
+            this.context = uow;
         }
 
-        public void Delete(DalRole entity)
+        public void Create(DalRole e)
         {
-            throw new NotImplementedException();
+            context.Set<Role>().Add(e.GetORMEntity());
+        }
+
+        public void Delete(DalRole e)
+        {
+            context.Set<Role>().Attach(e.GetORMEntity());
+            context.Set<Role>().Remove(e.GetORMEntity());
+        }
+
+        public void Update(DalRole e)
+        {
+
+            context.Entry(e.GetORMEntity()).State = EntityState.Modified;
         }
 
         public IEnumerable<DalRole> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DalRole> GetAllByPredicate(Expression<Func<DalRole, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            return context.Set<Role>().Select(role => role.GetDalEntity());
         }
 
         public DalRole GetById(int key)
         {
-            throw new NotImplementedException();
+            var ormRole = context.Set<Role>().FirstOrDefault(role => role.Id == key);
+            return ormRole == null ? null : ormRole.GetDalEntity();
         }
 
-        public DalRole GetByPredicate(Expression<Func<DalRole, bool>> predicates)
+        public DalRole GetByPredicate(Expression<Func<DalRole, bool>> f)
         {
-            throw new NotImplementedException();
+            return GetAllByPredicate(f).FirstOrDefault();
         }
 
-        public void Update(DalRole entity)
+        public IEnumerable<DalRole> GetAllByPredicate(Expression<Func<DalRole, bool>> f)
         {
-            throw new NotImplementedException();
+            var visitor =
+                new HelperExpressionVisitor<DalRole, Role>(Expression.Parameter(typeof(Role), f.Parameters[0].Name));
+            var exp2 = Expression.Lambda<Func<Role, bool>>(visitor.Visit(f.Body), visitor.NewParameterExp);
+            return context.Set<Role>()
+                .Where(exp2)
+                .Select(r => r.GetDalEntity());
         }
+
+
     }
 }
