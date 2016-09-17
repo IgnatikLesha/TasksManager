@@ -15,7 +15,7 @@ using Helpers;
 
 namespace BLL.Services
 {
-    class RoleService : IRoleService
+    public class RoleService : IRoleService
     {
 
         private readonly IUnitOfWork unit;

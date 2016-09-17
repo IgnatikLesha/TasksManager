@@ -15,6 +15,12 @@ namespace TasksManager.Controllers
         private readonly ITaskService taskService;
         private readonly IUserService userService;
 
+        public HomeController(ITaskService taskService, IUserService userService)
+        {
+            this.taskService = taskService;
+            this.userService = userService;
+        }
+
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -41,16 +47,18 @@ namespace TasksManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
         {
-            if (userService.GetByPredicate(u => u.Email == model.Email) != null)
-            {
-                ModelState.AddModelError("", "This address already reserved.");
-                return View(model);
-            }
             if (userService.GetByPredicate(u => u.Name == model.Name) != null)
             {
                 ModelState.AddModelError("", "This name already reserved.");
                 return View(model);
             }
+
+            if (userService.GetByPredicate(u => u.Email == model.Email) != null)
+            {
+                ModelState.AddModelError("", "This address already reserved.");
+                return View(model);
+            }
+
 
             if (ModelState.IsValid)
             {

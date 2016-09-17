@@ -23,8 +23,5 @@ namespace DAL.DTO
 
         public string Description { get; set; }
 
-        public virtual DalUser User { get; set; }
-
-        public virtual DalUser User1 { get; set; }
     }
 }

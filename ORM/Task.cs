@@ -15,7 +15,7 @@ namespace ORM
 
         public int RecipientId { get; set; }
 
-        public DateTime DateCreation { get; set; }
+        public DateTime CreationDate { get; set; }
 
         public bool Checked { get; set; }
 
@@ -24,8 +24,5 @@ namespace ORM
 
         public string Description { get; set; }
 
-        public virtual User User { get; set; }
-
-        public virtual User User1 { get; set; }
     }
 }
