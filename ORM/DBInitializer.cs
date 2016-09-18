@@ -18,6 +18,17 @@ namespace ORM
 
             User administrator = new User {Name = "Admin", Email = "ignatiklesha@gmail.com", Roles = {user, admin}, Password = "qwerty"};
             context.Users.Add(administrator);
+            Task first = new Task()
+            {
+                Name = "Hard",
+                Checked = false,
+                RecipientId = 2,
+                SenderId = 3,
+                CreationDate = DateTime.Now,
+                Id = 1,
+                Description = "Very hard task"
+            };
+            context.Tasks.Add(first);
             context.SaveChanges();
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ORM;
+using Task = ORM.Task;
 
 namespace ConsoleDBTest
 {
@@ -13,25 +14,18 @@ namespace ConsoleDBTest
         {
             using (var db = new TasksManagerModel())
             {
-                //var user = new Role
-                //{
-                //    Name = "User"
-                //};
-                //var admin = new Role
-                //{
-                //    Name = "Admin"
-                //};
-                //db.Roles.Add(user);
-                //db.Roles.Add(admin);
-                //db.SaveChanges();
-                //User user1 = new User()
-                //{
-                //    Name = "John", Password = "qwerty",
-                //    Email = "qwerty@gmail.com",
-                //    Roles = { user, admin }
-                //};
-                //db.Users.Add(user1);
-                //db.SaveChanges();
+            //    Task first = new Task()
+            //    {
+            //        Name = "Hard",
+            //        Checked = false,
+            //        RecipientId = 2,
+            //        SenderId = 3,
+            //        CreationDate = DateTime.Now,
+            //        Id = 1,
+            //        Description = "Very hard task"
+            //    };
+            //    db.Tasks.Add(first);
+            //    db.SaveChanges();
 
 
 
@@ -41,11 +35,20 @@ namespace ConsoleDBTest
                     Console.WriteLine(item.Name);
 
                 }
+
                 foreach (var item in db.Users)
                 {
 
                         Console.WriteLine(item.Name);
                         Console.WriteLine(item.Email);
+
+                }
+
+                foreach (var item in db.Tasks)
+                {
+
+                    Console.WriteLine(item.Name);
+                    Console.WriteLine(item.Description);
 
                 }
                 Console.ReadLine();

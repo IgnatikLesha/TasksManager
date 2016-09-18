@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BLL.Entities;
 using BLL.Interfaces;
+using BLL.Mappers;
 using TasksManager.Models;
 
 namespace TasksManager.Controllers
@@ -23,79 +24,44 @@ namespace TasksManager.Controllers
 
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = userService.GetByPredicate(u => u.Name == User.Identity.Name);
-                var tasks = taskService.GetAllByPredicate(t => t.SenderId == user.Id).ToList().GetTasksViewModel();
-                ViewBag.Tasks = tasks;
-                ViewBag.AllUsers = userService.GetAllEntities();
-            }
-            return View("Index");
+
+            return View(taskService.GetAllEntities().Select(t=>t.GetTaskViewModel()));
         }
 
-        public ActionResult ShowTasks()
+        public ActionResult ShowAllTasks()
         {
-            var user = userService.GetByPredicate(u => u.Name == User.Identity.Name);
-            var tasks = taskService.GetAllByPredicate(t => t.RecipientId == user.Id).ToList().GetTasksViewModel();
-            ViewBag.User = user;
-            ViewBag.Show = false;
-            return PartialView("_TasksView", tasks.Tasks);
+            return View(taskService.GetAllEntities().Select(t => t.GetTaskViewModel()));
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel model)
-        {
-            if (userService.GetByPredicate(u => u.Name == model.Name) != null)
-            {
-                ModelState.AddModelError("", "This name already reserved.");
-                return View(model);
-            }
 
-            if (userService.GetByPredicate(u => u.Email == model.Email) != null)
-            {
-                ModelState.AddModelError("", "This address already reserved.");
-                return View(model);
-            }
-
-
-            if (ModelState.IsValid)
-            {
-                var existUser = userService.GetByPredicate(u => u.Email == model.Email && u.Name == model.Name);
-                if (existUser == null)
-                {
-                    userService.Create(new UserEntity
-                    {
-                        Name = model.Name,
-                        Email = model.Email,
-                        Password = model.Password
-
-                    });
-
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Error registration");
-                }
-            }
-
-            return View(model);
-        }
-
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
 
         [HttpGet]
         public ActionResult CreateTask()
         {
             ViewBag.AllUsers = userService.GetAllEntities();
-            return PartialView("_TaskMenu");
+            //return View(userService.GetAllEntities().Select(t => t.GetUserViewModel()));
+            return PartialView("CreateTask");
+        }
+
+        [HttpPost]
+        public ActionResult CreateTask(TaskViewModel task, string toUser)
+        {
+            var userId = userService.GetByPredicate(u => u.Name == toUser);
+            var thisUser = userService.GetByPredicate(u => u.Name == User.Identity.Name);
+            task.SenderId = thisUser.Id;
+            task.RecipientId = userId.Id;
+
+            int id = taskService.CreateTask(new TaskEntity
+            {
+                Name = task.Name,
+                Checked = task.Checked,
+                CreationDate = task.CreationDate,
+                Description = task.Description,
+                SenderId = task.SenderId,
+                RecipientId = task.RecipientId
+            });
+            ViewBag.TaskIdNew = id;
+            return PartialView("_MissionMenu");
         }
 
         public ActionResult MarkAsChecked(int id)

@@ -29,12 +29,26 @@ namespace TasksManager.Models
             TasksViewModel model = new TasksViewModel()
             {
                 Tasks = listBllEntity.Where(t => t.Checked != true).Select(t => t.GetTaskViewModel()).ToList(),
-                CheckedTasks = listBllEntity.Where(t => t.Checked == true).Select(t => t.GetTaskViewModel()).ToList(),
+
 
             };
             model.CountTasks = model.Tasks.Count;
-            model.CountCheckedTasks = model.CheckedTasks.Count;
+
             return model;
         }
+
+        public static UserViewModel GetUserViewModel(this UserEntity bllEntity)
+        {
+            if (bllEntity == null)
+                return null;
+            return new UserViewModel()
+            {
+                Id = bllEntity.Id,
+                Name = bllEntity.Name,
+                Email = bllEntity.Email
+            };
+        }
+
+
     }
 }

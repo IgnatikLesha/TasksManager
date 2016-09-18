@@ -4,7 +4,7 @@
     ViewBag.Title = "Register";
 }
 
-    @using (Html.BeginForm("Register", "Home", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" } }))
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" } }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)

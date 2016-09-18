@@ -234,14 +234,22 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\User\UserView.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\ShowTasks.cshtml" />
+    <Content Include="Views\Shared\Register.cshtml" />
+    <Content Include="Views\Shared\ShowTasks.cshtml" />
+    <Content Include="Views\Shared\Login.cshtml" />
+    <Content Include="Views\Shared\TasksMenu.cshtml" />
+    <Content Include="Views\Shared\TasksView.cshtml" />
+    <Content Include="Views\Shared\Logout.cshtml" />
+    <Content Include="Views\Shared\ShowAllTasks.cshtml" />
+    <Content Include="Views\Shared\CreateTask.cshtml" />
+    <Content Include="Views\Shared\LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

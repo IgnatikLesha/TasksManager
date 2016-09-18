@@ -16,7 +16,7 @@ namespace DAL.Concrete
 {
     public class TaskRepository : ITaskRepository
     {
-        private readonly DbContext context;
+        private DbContext context;
 
         public TaskRepository(DbContext uow)
         {

@@ -22,18 +22,12 @@ namespace TasksManager.Models
 
         public string Description { get; set; }
 
-        public virtual UserEntity User { get; set; }
-
-        public virtual UserEntity User1 { get; set; }
-
     }
 
     public class TasksViewModel
     {
         public List<TaskViewModel> Tasks;
-        public List<TaskViewModel> CheckedTasks;
         public int CountTasks;
-        public int CountCheckedTasks;
     }
 
 }
