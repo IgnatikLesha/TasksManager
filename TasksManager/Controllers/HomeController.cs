@@ -61,7 +61,7 @@ namespace TasksManager.Controllers
                 RecipientId = task.RecipientId
             });
             ViewBag.TaskIdNew = id;
-            return PartialView("_MissionMenu");
+            return PartialView("CreateTask");
         }
 
         public ActionResult MarkAsChecked(int id)

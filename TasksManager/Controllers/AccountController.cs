@@ -80,28 +80,55 @@ namespace TasksManager.Controllers
             return View();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel viewModel, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-
-                var user = userService.GetByPredicate(u => u.Name == model.Name && u.Password == model.Password);
-                if (user != null)
+                if (Membership.ValidateUser(viewModel.Email, viewModel.Password))
+                //Проверяет учетные данные пользователя и управляет параметрами пользователей
                 {
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return RedirectToAction("Index", "Home");
+                    FormsAuthentication.SetAuthCookie(viewModel.Email, viewModel.RememberMe);
+                    //Управляет службами проверки подлинности с помощью форм для веб-приложений
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Wrong password or login");
+                    ModelState.AddModelError("", "Incorrect login or password.");
                 }
             }
-
-            return RedirectToAction("Index", "Home", model);
+            return View(viewModel);
         }
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Login(LoginViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        //var user = userService.GetByPredicate(u => u.Email == model.Email && u.Password == model.Password);
+        //        //if (user != null)
+        //        if (Membership.ValidateUser(model.Email, model.Password))
+        //        {
+        //            FormsAuthentication.SetAuthCookie(model.Email, true);
+        //            return RedirectToAction("About", "Home");
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("", "Wrong password or login");
+        //        }
+        //    }
+
+        //    return RedirectToAction("Contact", "Home", model);
+        //}
 
         public ActionResult LogOff()
         {
@@ -109,12 +136,5 @@ namespace TasksManager.Controllers
 
             return RedirectToAction("Login", "Account");
         }
-
-
-
-
-
-
-
     }
 }

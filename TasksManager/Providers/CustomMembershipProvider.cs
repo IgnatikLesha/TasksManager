@@ -2,81 +2,142 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Helpers;
 using System.Web.Security;
 using BLL.Entities;
 using BLL.Interfaces;
-
+using BLL.Mappers;
+using BLL.Services;
+using DAL.Interfaces;
+using DAL.Mappers;
+using ORM;
 
 namespace TasksManager.Providers
 {
     public class CustomMembershipProvider : MembershipProvider
     {
-        private IUserService service;
+        public IUserRepository UserRepository
+           => (IUserRepository)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IUserRepository));
 
-        public override MembershipUser GetUser(string username, bool userIsOnline)
+        //public IRoleRepository RoleRepository
+        //    => (IRoleRepository)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IRoleRepository));
+
+        public MembershipUser CreateUser(string email, string password)
         {
-            service = System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IUserService)) as IUserService;
-            try
-            {
-                var user = service.GetAllByPredicate(u => u.Name == username).FirstOrDefault();
-                if (user == null)
-                    return null;
-                MembershipUser member = new MembershipUser("CustomMembershipProvider", user.Name, null, null, null, null,
-                    false, false, DateTime.Now, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
-                return member;
-            }
-            catch
+            MembershipUser membershipUser = GetUser(email, false);
+
+            if (membershipUser != null)
             {
                 return null;
             }
-        }
 
-
-        public override bool ValidateUser(string username, string password)
-        {
-            service = System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IUserService)) as IUserService;
-            bool isValid = false;
-            try
+            var user = new User
             {
-                var user = service.GetAllByPredicate(u => u.Name == username).FirstOrDefault();
-                if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
-                {
-                    isValid = true;
-                }
-            }
-            catch
-            {
-                isValid = false;
-            }
-            return isValid;
+                Email = email,
+                Password = Crypto.HashPassword(password)
+                //http://msdn.microsoft.com/ru-ru/library/system.web.helpers.crypto(v=vs.111).aspx
+            };
+
+
+            UserRepository.Create(user.GetDalEntity());
+            membershipUser = GetUser(email, false);
+            return membershipUser;
         }
 
-        public IEnumerable<UserEntity> GetAllUsers()
+        public override bool ValidateUser(string email, string password)
         {
-            return service.GetAllEntities();
+            var user = UserRepository.GetByPredicate(u=>u.Email==email);
+
+            if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
+              //if (user != null && user.Password.Equals(password))
+                //Определяет, соответствуют ли заданный хэш RFC 2898 и пароль друг другу
+              {
+                return true;
+              }
+            return false;
         }
 
-        public MembershipUser CreateUser(UserEntity user)
+        public override MembershipUser GetUser(string email, bool userIsOnline)
         {
+            var user = UserRepository.GetByPredicate(u=>u.Email==email).GetORMEntity();
 
-            MembershipUser member = GetUser(user.Name, false);
+            if (user == null) return null;
 
-            if (member == null)
-            {
-                try
-                {
-                    service.Create(user);
-                    member = GetUser(user.Name, false);
-                    return member;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-            return null;
+            var memberUser = new MembershipUser("CustomMembershipProvider", user.Email,
+                null, null, null, null,
+                false, false, DateTime.MinValue, 
+                DateTime.MinValue, DateTime.MinValue,
+                DateTime.MinValue, DateTime.MinValue);
+
+            return memberUser;
         }
+
+        //private IUserService service;
+
+        //public override MembershipUser GetUser(string username, bool userIsOnline)
+        //{
+        //    service = System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IUserService)) as IUserService;
+        //    try
+        //    {
+        //        var user = service.GetAllByPredicate(u => u.Name == username).FirstOrDefault();
+        //        if (user == null)
+        //            return null;
+        //        MembershipUser member = new MembershipUser("CustomMembershipProvider", user.Name, null, null, null, null,
+        //            false, false, DateTime.Now, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
+        //        return member;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
+
+
+        //public override bool ValidateUser(string username, string password)
+        //{
+        //    service = System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IUserService)) as IUserService;
+        //    bool isValid = false;
+        //    try
+        //    {
+        //        var user = service.GetAllByPredicate(u => u.Name == username).FirstOrDefault();
+        //        if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
+        //        {
+        //            isValid = true;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        isValid = false;
+        //    }
+        //    return isValid;
+        //}
+
+        //public IEnumerable<UserEntity> GetAllUsers()
+        //{
+        //    return service.GetAllEntities();
+        //}
+
+        //public MembershipUser CreateUser(UserEntity user)
+        //{
+
+        //    MembershipUser member = GetUser(user.Name, false);
+
+        //    if (member == null)
+        //    {
+        //        try
+        //        {
+        //            service.Create(user);
+        //            member = GetUser(user.Name, false);
+        //            return member;
+        //        }
+        //        catch
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    return null;
+        //}
 
 
         public override string ApplicationName

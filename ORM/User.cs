@@ -28,7 +28,7 @@ namespace ORM
         [Required]
         [StringLength(30)]
         public string Password { get; set; }
-
+        
         public virtual ICollection<Task> Tasks { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }

@@ -8,10 +8,10 @@ namespace TasksManager.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Invalid name")]
-        [StringLength(20, MinimumLength = 6)]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Invalid Email")]
+        [StringLength(40, MinimumLength = 6)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Invalid password")]
         [StringLength(20, MinimumLength = 6)]
