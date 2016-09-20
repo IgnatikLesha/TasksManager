@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-//using System.Web.Helpers;
+using System.Web.Helpers;
 
 namespace ORM
 {
@@ -19,7 +19,7 @@ namespace ORM
             context.Roles.Add(admin);
 
             User administrator = new User {Name = "Admin", Email = "ignatiklesha@gmail.com",
-                Roles = {user, admin}, Password = "qwerty"}; //Crypto.HashPassword("qwerty") };
+                Roles = {user, admin}, Password = Crypto.HashPassword("qwerty") };
             context.Users.Add(administrator);
             Task first = new Task()
             {

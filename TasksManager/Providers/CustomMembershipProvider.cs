@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//using System.Web.Helpers;
+using System.Web.Helpers;
 using System.Web.Security;
 using BLL.Entities;
 using BLL.Interfaces;
@@ -35,7 +35,7 @@ namespace TasksManager.Providers
             var user = new User
             {
                 Email = email,
-                Password = password //Crypto.HashPassword(password)
+                Password = Crypto.HashPassword(password)
                 //http://msdn.microsoft.com/ru-ru/library/system.web.helpers.crypto(v=vs.111).aspx
             };
 
@@ -49,7 +49,7 @@ namespace TasksManager.Providers
         {
             var user = UserRepository.GetByPredicate(u=>u.Email==email);
 
-            if (user != null)// && Crypto.VerifyHashedPassword(user.Password, password))
+            if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
               //if (user != null && user.Password.Equals(password))
                 //Определяет, соответствуют ли заданный хэш RFC 2898 и пароль друг другу
               {
