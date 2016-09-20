@@ -27,9 +27,12 @@ namespace DAL.Concrete
             this.context = uow;
         }
 
-        public void Create(DalUser e)
+        public bool Create(DalUser user)
         {
-            context.Set<User>().Add(e.GetORMEntity());
+            if (user.Id != 0) return false;
+            context.Set<User>().Add(user.GetORMEntity());
+            //context.SaveChanges();
+            return true;
         }
 
         public void Delete(DalUser e)

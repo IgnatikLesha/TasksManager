@@ -9,6 +9,7 @@ using BLL.Entities;
 using BLL.Interfaces;
 using BLL.Mappers;
 using BLL.Services;
+using DAL.DTO;
 using DAL.Interfaces;
 using DAL.Mappers;
 using ORM;
@@ -23,7 +24,7 @@ namespace TasksManager.Providers
         //public IRoleRepository RoleRepository
         //    => (IRoleRepository)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IRoleRepository));
 
-        public MembershipUser CreateUser(string email, string password)
+        public MembershipUser CreateUser(string email, string password, string name)
         {
             MembershipUser membershipUser = GetUser(email, false);
 
@@ -32,15 +33,15 @@ namespace TasksManager.Providers
                 return null;
             }
 
-            var user = new User
+            var user = new DalUser
             {
+                Name = name,
                 Email = email,
                 Password = Crypto.HashPassword(password)
-                //http://msdn.microsoft.com/ru-ru/library/system.web.helpers.crypto(v=vs.111).aspx
             };
 
 
-            UserRepository.Create(user.GetDalEntity());
+            UserRepository.Create(user);
             membershipUser = GetUser(email, false);
             return membershipUser;
         }

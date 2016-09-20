@@ -63,7 +63,7 @@ namespace TasksManager.Controllers
             if (ModelState.IsValid)
             {
                 var membershipUser = ((CustomMembershipProvider)Membership.Provider)
-                    .CreateUser(model.Email, model.Password);
+                    .CreateUser(model.Email, model.Password, model.Name);
 
                 if (membershipUser != null)
                 {

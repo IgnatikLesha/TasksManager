@@ -10,7 +10,7 @@ namespace DAL.Interfaces
 {
     public interface IUserRepository
     {
-        void Create(DalUser entity);
+        bool Create(DalUser entity);
 
         void Delete(DalUser entity);
 
