@@ -39,25 +39,40 @@ namespace TasksManager.Controllers
             }
 
 
+            //if (ModelState.IsValid)
+            //{
+            //    var existUser = userService.GetByPredicate(u => u.Email == model.Email && u.Name == model.Name);
+            //    if (existUser == null)
+            //    {
+            //        userService.Create(new UserEntity
+            //        {
+            //            Name = model.Name,
+            //            Email = model.Email,
+            //            Password = model.Password
+
+            //        });
+
+            //        FormsAuthentication.SetAuthCookie(model.Name, true);
+            //        return RedirectToAction("Index", "Home");
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("", "Error registration");
+            //    }
+            //}
             if (ModelState.IsValid)
             {
-                var existUser = userService.GetByPredicate(u => u.Email == model.Email && u.Name == model.Name);
-                if (existUser == null)
+                var membershipUser = ((CustomMembershipProvider)Membership.Provider)
+                    .CreateUser(model.Email, model.Password);
+
+                if (membershipUser != null)
                 {
-                    userService.Create(new UserEntity
-                    {
-                        Name = model.Name,
-                        Email = model.Email,
-                        Password = model.Password
-
-                    });
-
-                    FormsAuthentication.SetAuthCookie(model.Name, true);
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Error registration");
+                    ModelState.AddModelError("", "Error registration.");
                 }
             }
 
