@@ -37,7 +37,7 @@ namespace TasksManager.Providers
             {
                 Name = name,
                 Email = email,
-                Password = Crypto.HashPassword(password)
+                Password = password //Crypto.HashPassword(password)
             };
 
 
@@ -50,10 +50,10 @@ namespace TasksManager.Providers
         {
             var user = UserRepository.GetByPredicate(u=>u.Email==email);
 
-            if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
-              //if (user != null && user.Password.Equals(password))
-                //Определяет, соответствуют ли заданный хэш RFC 2898 и пароль друг другу
-              {
+            //if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
+            if (user != null && user.Password.Equals(password))
+            //Определяет, соответствуют ли заданный хэш RFC 2898 и пароль друг другу
+            {
                 return true;
               }
             return false;
@@ -67,7 +67,7 @@ namespace TasksManager.Providers
 
             var memberUser = new MembershipUser("CustomMembershipProvider", user.Email,
                 null, null, null, null,
-                false, false, DateTime.MinValue, 
+                false, false, DateTime.Now, 
                 DateTime.MinValue, DateTime.MinValue,
                 DateTime.MinValue, DateTime.MinValue);
 

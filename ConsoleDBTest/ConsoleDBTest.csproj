@@ -60,6 +60,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\AD.System.Web.Helpers.dll.2.0.0\lib\net20\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Mvc.Extensions, Version=1.1.0.6, Culture=neutral, PublicKeyToken=d631f4e4b226a032, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Web.Mvc.Extensions.1.1.1.2\lib\net45\System.Web.Mvc.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -80,7 +84,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -22,11 +22,11 @@ namespace ORM
         public string Name { get; set; }
 
         [Required]
-        [StringLength(30)]
+        [StringLength(40)]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(30)]
+        [StringLength(60)]
         public string Password { get; set; }
         
         public virtual ICollection<Task> Tasks { get; set; }

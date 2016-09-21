@@ -14,7 +14,7 @@ namespace TasksManager.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Invalid password")]
-        [StringLength(20, MinimumLength = 6)]
+        [StringLength(60, MinimumLength = 6)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 

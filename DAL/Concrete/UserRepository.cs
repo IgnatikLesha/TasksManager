@@ -16,9 +16,9 @@ namespace DAL.Concrete
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DbContext context;
+        private readonly TasksManagerModel context;
 
-        public UserRepository(DbContext uow)
+        public UserRepository(TasksManagerModel uow)
         {
             if (uow == null)
             {
@@ -27,11 +27,24 @@ namespace DAL.Concrete
             this.context = uow;
         }
 
+
+        //private readonly DbContext context;
+
+        //public UserRepository(DbContext uow)
+        //{
+        //    if (uow == null)
+        //    {
+        //        throw new ArgumentNullException("entitiesContext");
+        //    }
+        //    this.context = uow;
+        //}
+
         public bool Create(DalUser user)
         {
             if (user.Id != 0) return false;
-            context.Set<User>().Add(user.GetORMEntity());
-            //context.SaveChanges();
+            var user1 = user.GetORMEntity();
+            context.Users.Add(user1);
+            context.SaveChanges();
             return true;
         }
 
