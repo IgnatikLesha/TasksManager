@@ -42,15 +42,16 @@
                         @item.Description
                     </p>
                 </td>
-                @if (item.Checked == true)
+                @*@if (item.Checked == true)
                 {
                     <td>Checked</td>
                 }
                 else
                 {
                     <button type="submit" class="btnDone">Mark as cheked</button>
-                }
-
+                }*@
+                <td><input id="TaskId" name="TaskId" type="hidden" text="@item.Id" /></td>
+                <td><input type='button' id="btnDone" value='Mask as cheked' class="btn-primary" /></td>
             </tr>
         }
         </tbody>

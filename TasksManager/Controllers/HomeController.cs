@@ -94,5 +94,14 @@ namespace TasksManager.Controllers
 
             return View();
         }
+        public void SetDone(string id)
+        {
+            int taskId = Convert.ToInt32(id);
+            var task = taskService.GetById(taskId);
+            if (task.Checked == false)
+            {
+                task.Checked = true;
+            }
+        }
     }
 }
