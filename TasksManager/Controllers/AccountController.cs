@@ -121,29 +121,7 @@ namespace TasksManager.Controllers
             return View(viewModel);
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Login(LoginViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
 
-        //        //var user = userService.GetByPredicate(u => u.Email == model.Email && u.Password == model.Password);
-        //        //if (user != null)
-        //        if (Membership.ValidateUser(model.Email, model.Password))
-        //        {
-        //            FormsAuthentication.SetAuthCookie(model.Email, true);
-        //            return RedirectToAction("About", "Home");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Wrong password or login");
-        //        }
-        //    }
-
-        //    return RedirectToAction("Contact", "Home", model);
-        //}
 
         public ActionResult LogOff()
         {

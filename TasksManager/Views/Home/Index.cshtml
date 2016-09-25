@@ -3,43 +3,65 @@
     ViewBag.Title = "All tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.ActionLink("Show My Tasks", "ShowMyTasks", "Home");
-<h2> All Tasks</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    //@Html.ActionLink("Show My Tasks", "ShowMyTasks", "Home")
 
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Checked)
-        </th>
-        <th></th>
-    </tr>
+    //@Html.ActionLink("Tasks for me", "TasksForMe", "Home")
+    <a href="http://localhost:5100/Home/TasksForMe/"><img src="/Content/images/mytasks.jpg" width="400" 
+  height="400" alt="My tasks"/></a>
+    <a href="http://localhost:5100/Home/ShowMyTasks"><img src="/Content/images/mt.png" width="400" 
+  height="400" alt="Created tasks"/></a>
+}
+else
+{
+    <h2> All Tasks</h2>
 
-    @foreach (var item in Model)
-    {
+    <table>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            @if (item.Checked == true)
-             {
-                <td>Checked</td>
-            }
-            else
-            {
-                <td>Not checked</td>
-            }
-
+            <th>
+                <p class="text-info">
+                    @Html.DisplayNameFor(model => model.Name)
+                </p>
+            </th>
+            <th>
+                <p class="text-info">
+                    @Html.DisplayNameFor(model => model.Description)
+                </p>
+            </th>
+            <th>
+                <p class="text-info">
+                @Html.DisplayNameFor(model => model.Checked)
+                </p>
+            </th>
+            <th></th>
         </tr>
-    }
 
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p class="text-success">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </p>
+                </td>
+                <td>
+                    <p class="text-success">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </td>
+                @if (item.Checked == true)
+                {
+                    <td>
+                        <p class="text-success">Checked</p></td>
+                }
+                else
+                {
+                    <td>
+                        <p class="text-success">Not checked</p></td>
+                }
 
-</table>
+            </tr>
+        }
+    </table>
+}

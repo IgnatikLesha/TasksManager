@@ -39,7 +39,6 @@ namespace TasksManager.Controllers
         public ActionResult CreateTask()
         {
             ViewBag.AllUsers = userService.GetAllEntities();
-            //return View(userService.GetAllEntities().Select(t => t.GetUserViewModel()));
             return PartialView("CreateTask");
         }
 
@@ -51,7 +50,6 @@ namespace TasksManager.Controllers
             task.SenderId = thisUser.Id;
             task.RecipientId = userId.Id;
 
-            //int id = taskService.CreateTask(new TaskEntity
             taskService.Create(new TaskEntity
             {
                 Name = task.Name,
@@ -61,8 +59,7 @@ namespace TasksManager.Controllers
                 SenderId = task.SenderId,
                 RecipientId = task.RecipientId
             });
-            //ViewBag.TaskIdNew = id;
-            return PartialView("Contact");
+            return PartialView("Index");
         }
 
         public ActionResult ShowMyTasks()
@@ -71,31 +68,29 @@ namespace TasksManager.Controllers
             var tasks = taskService.GetAllByPredicate(t => t.SenderId == user.Id).ToList();//.GetTasksViewModel();
             ViewBag.User = user;
             ViewBag.tasks = tasks;
-            //ViewBag.Show = false;
-            return PartialView("ShowMyTasks");//, tasks.Tasks);
+            return PartialView("ShowMyTasks");
         }
 
-        public ActionResult MarkAsChecked(int id)
+        public ActionResult TasksForMe()
         {
-            var task = taskService.GetById(id);
-            if (task != null)
-                taskService.MarkAsChecked(task);
-
-            var tasks = taskService.GetAllByPredicate(m => m.Id == id).Select(m => m.GetTaskViewModel()).ToList();
-            ViewBag.Show = true;
-            return PartialView("_TasksView", tasks);
+            var user = userService.GetByPredicate(u => u.Email == User.Identity.Name);
+            var tasks = taskService.GetAllByPredicate(t => t.RecipientId == user.Id).ToList();//.GetTasksViewModel();
+            ViewBag.User = user;
+            ViewBag.tasks = tasks;
+            return PartialView("TasksForMe");
         }
+
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Tasks Manager. Created by Lesha Ignatik. ";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "My contacts:.";
 
             return View();
         }

@@ -259,9 +259,11 @@
     <Content Include="Views\Shared\CreateTask.cshtml" />
     <Content Include="Views\Shared\LoginPartial.cshtml" />
     <Content Include="Views\Shared\LoginPartial1.cshtml" />
+    <Content Include="Views\Shared\TasksForMe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>

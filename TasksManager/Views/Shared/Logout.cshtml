@@ -2,7 +2,7 @@
     <div class="row ">
         <div><h3>Hello<h3><strong>@User.Identity.Name</strong></div>
         <div>
-            @Html.ActionLink("Log Off", "LogOff", "Account", null, new { @class = "btn btn-block btn-primary" })
+            <p class="btn btn-warning disabled">@Html.ActionLink("Log Off", "LogOff", "Account", null, new { @class = "btn btn-block btn-primary" })</p>
         </div>
     </div>
 </div>

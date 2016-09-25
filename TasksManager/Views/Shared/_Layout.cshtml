@@ -26,10 +26,6 @@
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li>@Html.ActionLink("Tasks", "ShowTasks", "Home")</li>
-                }
-                @if (User.Identity.IsAuthenticated)
-                {
                     <li>@Html.ActionLink("Create Task", "CreateTask", "Home")</li>
                 }
                 <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -42,7 +38,8 @@
     @RenderBody()
     <hr/>
     <footer>
-        <p>&copy; @DateTime.Now.Year - Task Manager</p>
+            <p>&copy; @DateTime.Now.Year - Task Manager</p>
+
     </footer>
 </div>
 

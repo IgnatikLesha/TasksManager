@@ -29,30 +29,30 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in ViewBag.tasks)
-            {
-                <tr>
-                    <td>
-                        <p class="text-success">
-                            @item.Name
-                        </p>
-                    </td>
-                    <td>
-                        <p class="text-success">
-                            @item.Description
-                        </p>
-                    </td>
-                    @if (item.Checked == true)
-                    {
-                        <td>Checked</td>
-                    }
-                    else
-                    {
-                        <td>Not checked</td>
-                    }
+        @foreach (var item in ViewBag.tasks)
+        {
+            <tr>
+                <td>
+                    <p class="text-success">
+                        @item.Name
+                    </p>
+                </td>
+                <td>
+                    <p class="text-success">
+                        @item.Description
+                    </p>
+                </td>
+                @if (item.Checked == true)
+                {
+                    <td>Checked</td>
+                }
+                else
+                {
+                    <button type="submit" class="btnDone">Mark as cheked</button>
+                }
 
-                </tr>
-            }
+            </tr>
+        }
         </tbody>
     </table>
 }
