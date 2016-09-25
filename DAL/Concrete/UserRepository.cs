@@ -43,6 +43,7 @@ namespace DAL.Concrete
         {
             if (user.Id != 0) return false;
             var user1 = user.GetORMEntity();
+            user1.Roles = new List<Role>() {context.Roles.Find(1) };
             context.Users.Add(user1);
             context.SaveChanges();
             return true;

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<TasksManager.Models.TaskViewModel>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "All tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Tasks</h2>
+@Html.ActionLink("Show My Tasks", "ShowMyTasks", "Home");
+<h2> All Tasks</h2>
 
 <table>
     <tr>
@@ -29,6 +29,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
+            @if (item.Checked == true)
+             {
+                <td>Checked</td>
+            }
+            else
+            {
+                <td>Not checked</td>
+            }
+
         </tr>
     }
 

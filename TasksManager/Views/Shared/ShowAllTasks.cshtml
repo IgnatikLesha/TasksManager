@@ -29,6 +29,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
+            @if (item.Checked == true)
+            {
+                <td>Checked</td>
+            }
+            else
+            {
+                <td>Not checked</td>
+            }
+
         </tr>
     }
 

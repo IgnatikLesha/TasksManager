@@ -1,13 +1,13 @@
 ﻿@model TasksManager.Models.TaskViewModel
 
-@{
+@*@{
     var options = new AjaxOptions
     {
         //InsertionMode = InsertionMode.Replace,
         UpdateTargetId = "main",
         LoadingElementId = "loadingIndicator"
     };
-}
+}*@
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -19,18 +19,18 @@
             <div class="panel-body">
                 @{
                     int n = ViewBag.AllUsers.Count;
-                    string[] allUsers = new string[n - 1];
+                    string[] allUsers = new string[n];
 
-                    for (int i = 0, j = 0; j < n; i++, j++)
+                    for (int i = 0; i < n; i++)
                     {
-                        if (ViewBag.AllUsers[j].Login != User.Identity.Name)
-                        { allUsers[i] = ViewBag.AllUsers[j].Login; }
-                        else { i--; }
+                        if (ViewBag.AllUsers[i].Name != User.Identity.Name)
+                        { allUsers[i] = ViewBag.AllUsers[i].Name; }
                     }
 
-                }
+}
 
-                @using (Ajax.BeginForm("CreateTask", "Home", options))
+                @*@using (Ajax.BeginForm("CreateTask", "Home", options))*@
+                @using (Html.BeginForm("CreateTask", "Home", FormMethod.Post))
                 {
 
 

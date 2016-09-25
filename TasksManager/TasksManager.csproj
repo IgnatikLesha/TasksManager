@@ -250,7 +250,7 @@
     <Content Include="Views\Shared\Error404.cshtml" />
     <Content Include="Views\User\UserView.cshtml" />
     <Content Include="Views\Shared\Register.cshtml" />
-    <Content Include="Views\Shared\ShowTasks.cshtml" />
+    <Content Include="Views\Shared\ShowMyTasks.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\Shared\TasksMenu.cshtml" />
     <Content Include="Views\Shared\TasksView.cshtml" />

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TasksManager.Models.TaskViewModel>
+@{
+    ViewBag.Title = "My tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h2> My Tasks</h2>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Checked)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.tasks)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                @if (item.Checked == true)
+                {
+                    <td>Checked</td>
+                }
+                else
+                {
+                    <td>Not checked</td>
+                }
+
+            </tr>
+        }
+    </table>
+}

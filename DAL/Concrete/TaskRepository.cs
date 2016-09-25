@@ -10,15 +10,16 @@ using DAL.DTO;
 using DAL.Interfaces;
 using DAL.Mappers;
 using Helpers;
+using ORM;
 using Task = ORM.Task;
 
 namespace DAL.Concrete
 {
     public class TaskRepository : ITaskRepository
     {
-        private DbContext context;
+        private TasksManagerModel context;
 
-        public TaskRepository(DbContext uow)
+        public TaskRepository(TasksManagerModel uow)
         {
             if (uow == null)
             {
@@ -29,7 +30,9 @@ namespace DAL.Concrete
 
         public void Create(DalTask dalTask)
         {
-            context.Set<ORM.Task>().Add(dalTask.GetORMEntity());
+            context.Tasks.Add(dalTask.GetORMEntity());
+            context.SaveChanges();
+            //context.Set<ORM.Task>().Add(dalTask.GetORMEntity());
         }
 
 

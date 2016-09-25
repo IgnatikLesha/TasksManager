@@ -47,11 +47,12 @@ namespace TasksManager.Controllers
         public ActionResult CreateTask(TaskViewModel task, string toUser)
         {
             var userId = userService.GetByPredicate(u => u.Name == toUser);
-            var thisUser = userService.GetByPredicate(u => u.Name == User.Identity.Name);
+            var thisUser = userService.GetByPredicate(u => u.Email == User.Identity.Name);
             task.SenderId = thisUser.Id;
             task.RecipientId = userId.Id;
 
-            int id = taskService.CreateTask(new TaskEntity
+            //int id = taskService.CreateTask(new TaskEntity
+            taskService.Create(new TaskEntity
             {
                 Name = task.Name,
                 Checked = task.Checked,
@@ -60,8 +61,18 @@ namespace TasksManager.Controllers
                 SenderId = task.SenderId,
                 RecipientId = task.RecipientId
             });
-            ViewBag.TaskIdNew = id;
-            return PartialView("CreateTask");
+            //ViewBag.TaskIdNew = id;
+            return PartialView("Contact");
+        }
+
+        public ActionResult ShowMyTasks()
+        {
+            var user = userService.GetByPredicate(u => u.Email == User.Identity.Name);
+            var tasks = taskService.GetAllByPredicate(t => t.SenderId == user.Id).ToList();//.GetTasksViewModel();
+            ViewBag.User = user;
+            ViewBag.tasks = tasks;
+            //ViewBag.Show = false;
+            return PartialView("ShowMyTasks");//, tasks.Tasks);
         }
 
         public ActionResult MarkAsChecked(int id)
