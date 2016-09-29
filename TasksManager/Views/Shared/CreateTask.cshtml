@@ -3,14 +3,7 @@
     ViewBag.Title = "Create tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*@{
-    var options = new AjaxOptions
-    {
-        //InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "main",
-        LoadingElementId = "loadingIndicator"
-    };
-}*@
+
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -32,7 +25,6 @@
 
 }
 
-                @*@using (Ajax.BeginForm("CreateTask", "Home", options))*@
                 @using (Html.BeginForm("CreateTask", "Home", FormMethod.Post))
                 {
 

@@ -7,6 +7,7 @@ using System.Web.Security;
 using BLL.Entities;
 using BLL.Interfaces;
 using BLL.Mappers;
+using DAL.Concrete;
 using TasksManager.Models;
 
 namespace TasksManager.Controllers
@@ -102,6 +103,13 @@ namespace TasksManager.Controllers
             {
                 task.Checked = true;
             }
+        }
+
+        public ActionResult MarkCheked(int taskId)
+        {
+            var task = taskService.GetById(taskId);
+            taskService.MarkAsChecked(task);
+            return PartialView("ShowMyTasks");
         }
     }
 }

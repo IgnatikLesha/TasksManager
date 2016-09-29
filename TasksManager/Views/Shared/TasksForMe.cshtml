@@ -3,6 +3,14 @@
     ViewBag.Title = "My tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@{
+    var options = new AjaxOptions
+    {
+        UpdateTargetId = "main",
+        //LoadingElementId = "loadingIndicator"
+    };
+ }
 @if (User.Identity.IsAuthenticated)
 {
     <h2> My Tasks</h2>
@@ -50,8 +58,15 @@
                 {
                     <button type="submit" class="btnDone">Mark as cheked</button>
                 }*@
-                <td><input id="TaskId" name="TaskId" type="hidden" text="@item.Id" /></td>
-                <td><input type='button' id="btnDone" value='Mask as cheked' class="btn-primary" /></td>
+
+                @*<td><input id="TaskId" name="TaskId" type="hidden" text="@item.Id" /></td>
+                <td><input type='button' id="btnDone" value='Mask as cheked' class="btn-primary" /></td>*@
+                <td>
+                    @using (Ajax.BeginForm("MarkCheked", "Home", new { item.Id }, options))
+                    {
+                        <input type="submit" value="Cheked" class="btn btn-success" />
+                    }
+                </td>
             </tr>
         }
         </tbody>
