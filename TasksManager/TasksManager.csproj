@@ -269,6 +269,8 @@
     <Content Include="Views\Shared\LoginPartial.cshtml" />
     <Content Include="Views\Shared\LoginPartial1.cshtml" />
     <Content Include="Views\Shared\TasksForMe.cshtml" />
+    <Content Include="Views\Shared\Search.cshtml" />
+    <Content Include="Views\Shared\SearchTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

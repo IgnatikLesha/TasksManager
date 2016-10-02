@@ -62,9 +62,18 @@
                 @*<td><input id="TaskId" name="TaskId" type="hidden" text="@item.Id" /></td>
                 <td><input type='button' id="btnDone" value='Mask as cheked' class="btn-primary" /></td>*@
                 <td>
-                    @using (Ajax.BeginForm("MarkCheked", "Home", new { item.Id }, options))
+                    @if (item.Checked == true)
                     {
-                        <input type="submit" value="Cheked" class="btn btn-success" />
+                        <label>Checked</label>
+                    }
+                    else
+                    {
+
+
+                        using (Ajax.BeginForm("MarkCheked", "Home", new {taskId = item.Id}, options))
+                         {
+                             <input type="submit" value="Cheked" class="btn btn-success"/>
+                         }
                     }
                 </td>
             </tr>

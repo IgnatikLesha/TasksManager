@@ -8,6 +8,7 @@ using BLL.Entities;
 using BLL.Interfaces;
 using BLL.Mappers;
 using DAL.Concrete;
+using PagedList;
 using TasksManager.Models;
 
 namespace TasksManager.Controllers
@@ -23,10 +24,13 @@ namespace TasksManager.Controllers
             this.userService = userService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-
-            return View(taskService.GetAllEntities().Select(t=>t.GetTaskViewModel()));
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            var tasks = taskService.GetAllEntities().Select(t => t.GetTaskViewModel());
+            return View(tasks.ToPagedList(pageNumber, pageSize));
+            //return View(taskService.GetAllEntities().Select(t=>t.GetTaskViewModel()));
         }
 
         public ActionResult ShowAllTasks()
@@ -63,10 +67,21 @@ namespace TasksManager.Controllers
             return PartialView("Index");
         }
 
+        public ActionResult SearchTask(string name)
+        {
+            var tasks = taskService.GetAllByPredicate(t => t.Name == name).ToList();
+            var data = tasks.Select(t => new {Name = t.Name, Description = t.Description, Checked = t.Checked});
+
+            //ViewBag.tasks = tasks;
+            //ViewBag.jsonTasks = Json(data);
+            //return View("SearchTask");
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ShowMyTasks()
         {
             var user = userService.GetByPredicate(u => u.Email == User.Identity.Name);
-            var tasks = taskService.GetAllByPredicate(t => t.SenderId == user.Id).ToList();//.GetTasksViewModel();
+            var tasks = taskService.GetAllByPredicate(t => t.SenderId == user.Id).ToList();
             ViewBag.User = user;
             ViewBag.tasks = tasks;
             return PartialView("ShowMyTasks");
@@ -105,11 +120,11 @@ namespace TasksManager.Controllers
             }
         }
 
-        public ActionResult MarkCheked(int taskId)
+        public void MarkCheked(int taskId)
         {
             var task = taskService.GetById(taskId);
             taskService.MarkAsChecked(task);
-            return PartialView("ShowMyTasks");
+            //return PartialView("TasksForMe", model);
         }
     }
 }

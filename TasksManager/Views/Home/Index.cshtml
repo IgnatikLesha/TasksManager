@@ -1,4 +1,7 @@
-﻿@model IEnumerable<TasksManager.Models.TaskViewModel>
+﻿@model PagedList.IPagedList<TasksManager.Models.TaskViewModel>
+@using PagedList.Mvc
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "All tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,17 +24,17 @@ else
         <tr>
             <th>
                 <p class="text-info">
-                    @Html.DisplayNameFor(model => model.Name)
+                    Name
                 </p>
             </th>
             <th>
                 <p class="text-info">
-                    @Html.DisplayNameFor(model => model.Description)
+                    Description
                 </p>
             </th>
             <th>
                 <p class="text-info">
-                @Html.DisplayNameFor(model => model.Checked)
+                    Checked
                 </p>
             </th>
             <th></th>
@@ -64,4 +67,7 @@ else
             </tr>
         }
     </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
 }
