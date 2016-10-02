@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TasksManager.Models.TaskViewModel>
+﻿@*@model IEnumerable<TasksManager.Models.TaskViewModel>*@
 @{
     ViewBag.Title = "Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,14 +8,14 @@
     var options = new AjaxOptions
     {
         UpdateTargetId = "tableBody",
-        Url = Url.Action("SearchTask", "Home"),
+        Url = Url.Action("GetJsonTasks", "Home"),
         OnSuccess = "processData"
     };
- }
+}
 @if (User.Identity.IsAuthenticated)
 {
     <h2> My Tasks</h2>
-    <input type="button" onclick="processData(model)"/>
+    <input type="button" onclick="processData(model)" />
     <table class="table table-striped table-hover ">
         <thead>
             <tr>
@@ -37,27 +37,16 @@
                         @*@Html.DisplayNameFor(model => model.Checked)*@
                     </p>
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody id="tableBody">
-            @foreach (var item in ViewBag.jsonTasks)
-            {
-                
-            }
-        <table/>
+
+
+
+            <table />
     </table>
 }
 
-<script type="text/javascript">
-    function processData(data) {
-        var target = $("#tableBody");
-        target.empty();
-        for (var i = 0; i < data.length; i++) {
-            var task = data[i];
-            target.append("<tr><td>" + task.Name + "</td><td>"
-                + task.Description + "</td><td>" + task.Checked
-                + "</td></tr>");
-        }
-    }
-</script>
+<script src="~/Scripts/jquery-1.10.2-vsdoc.js"></script>
+<script src="~/Scripts/todo.js"></script>
+

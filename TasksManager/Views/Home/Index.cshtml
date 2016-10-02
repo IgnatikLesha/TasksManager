@@ -1,7 +1,7 @@
 ﻿@model PagedList.IPagedList<TasksManager.Models.TaskViewModel>
 @using PagedList.Mvc
 
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 @{
     ViewBag.Title = "All tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,10 +10,10 @@
 {
     //@Html.ActionLink("Show My Tasks", "ShowMyTasks", "Home")
 
-    //@Html.ActionLink("Tasks for me", "TasksForMe", "Home")
+    @Html.ActionLink("Json", "ShowMyTasksJson", "Home")
     <a href="http://localhost:5100/Home/TasksForMe/"><img src="/Content/images/mytasks.jpg" width="400" 
   height="400" alt="My tasks"/></a>
-    <a href="http://localhost:5100/Home/ShowMyTasks"><img src="/Content/images/mt.png" width="400" 
+    <a href="http://localhost:5100/Home/ShowMyTasks" id="smt"><img src="/Content/images/mt.png" width="400" 
   height="400" alt="Created tasks"/></a>
 }
 else

@@ -67,15 +67,39 @@ namespace TasksManager.Controllers
             return PartialView("Index");
         }
 
-        public ActionResult SearchTask(string name)
+        public ActionResult SearchTask()
+        {
+            return View();
+        }
+
+        public IEnumerable<TaskEntity> SearchTask(string name)
         {
             var tasks = taskService.GetAllByPredicate(t => t.Name == name).ToList();
             var data = tasks.Select(t => new {Name = t.Name, Description = t.Description, Checked = t.Checked});
 
             //ViewBag.tasks = tasks;
             //ViewBag.jsonTasks = Json(data);
-            //return View("SearchTask");
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return tasks;
+            //return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ShowMyTasksJson()
+        {
+            var user = userService.GetByPredicate(u => u.Email == User.Identity.Name);
+            var tasks = taskService.GetAllByPredicate(t => t.SenderId == user.Id).ToList();
+            ViewBag.User = user;
+            ViewBag.tasks = tasks;
+            return Json(tasks, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public ActionResult GetJsonTasks(string name)
+        {
+            ViewBag.tasks = SearchTask(name);
+            var data = SearchTask(name).Select(t => new { Name = t.Name, Description = t.Description, Checked = t.Checked });
+            //return Json(data, JsonRequestBehavior.AllowGet);
+            return PartialView("GetJsonTasks");
         }
 
         public ActionResult ShowMyTasks()
@@ -120,11 +144,11 @@ namespace TasksManager.Controllers
             }
         }
 
-        public void MarkCheked(int taskId)
+        public ActionResult MarkCheked(int taskId)
         {
             var task = taskService.GetById(taskId);
             taskService.MarkAsChecked(task);
-            //return PartialView("TasksForMe", model);
+            return RedirectToAction("TasksForMe");
         }
     }
 }

@@ -227,6 +227,7 @@
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
@@ -270,7 +271,9 @@
     <Content Include="Views\Shared\LoginPartial1.cshtml" />
     <Content Include="Views\Shared\TasksForMe.cshtml" />
     <Content Include="Views\Shared\Search.cshtml" />
-    <Content Include="Views\Shared\SearchTask.cshtml" />
+    <Content Include="Views\Shared\GetJsonTasks.cshtml" />
+    <Content Include="Views\Shared\Tasks11.cshtml" />
+    <Content Include="Views\Shared\ShowMyTasksJson.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
